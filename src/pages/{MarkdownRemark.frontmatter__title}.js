@@ -1,15 +1,23 @@
 import { graphql } from 'gatsby'
 import * as React from 'react'
 import Layout from '../components/layout'
+import Introduce from '../components/introduction'
+import styled from "styled-components"
+
+const PostContainer = styled.div`
+  margin-bottom: 5rem;
+`
 
 const BlogPost = ({ data }) => {
   const post = data.markdownRemark;
   return (
     <Layout>
-      <div>
+      <PostContainer>
         <h1>{post.frontmatter.title}</h1>
+        <h4>{post.frontmatter.date} - {post.timeToRead} min read</h4>
         <div dangerouslySetInnerHTML={{ __html: post.html }} ></div>
-      </div>
+      </PostContainer>
+      <Introduce />
     </Layout>
   )
 }
@@ -23,6 +31,7 @@ export const query = graphql`
         title
       }
       html
+      timeToRead
     }
   }
 `
